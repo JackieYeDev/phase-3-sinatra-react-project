@@ -3,7 +3,7 @@ class ApplicationController < Sinatra::Base
 
   def serialize(objects)
     objects.to_json(
-      only: [:id],
+      only: [:id, :name],
       include: {
         notes: {
           only: [
@@ -14,11 +14,6 @@ class ApplicationController < Sinatra::Base
         }
       }
     )
-  end
-
-  # Add your routes here
-  get "/" do
-    { message: "Good luck with your project!" }.to_json
   end
 
   # Return authors with associated notes.
