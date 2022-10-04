@@ -31,6 +31,11 @@ class ApplicationController < Sinatra::Base
     serialize(Author.find(params[:id]))
   end
 
+  post "/authors" do
+    author = Author.create(name: params[:name])
+    author.to_json
+  end
+
   get "/notes" do
     notes = Note.all
     notes.to_json
@@ -46,12 +51,12 @@ class ApplicationController < Sinatra::Base
     note.to_json
   end
 
-  patch "/notes" do
+  patch "/notes/:id" do
 
   end
 
-  delete "/notes" do
-
+  delete "/notes/:id" do
+    Note.delete(id: params[:id])
   end
 
 end
