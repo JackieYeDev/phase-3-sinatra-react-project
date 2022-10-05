@@ -36,8 +36,12 @@ class ApplicationController < Sinatra::Base
     notes.to_json
   end
 
+  get "/notes/:id" do
+    note = Note.find(params[:id])
+    note.to_json
+  end
+
   post "/notes" do
-    author = Author.where(name: params[:name]).first_or_create
     note = Note.create(
       title: params[:title],
       content: params[:content],
@@ -57,7 +61,9 @@ class ApplicationController < Sinatra::Base
   end
 
   delete "/notes/:id" do
-    Note.delete(id: params[:id])
+    note = Note.find(params[:id])
+    note.destroy
+    note.to_json
   end
 
 end
