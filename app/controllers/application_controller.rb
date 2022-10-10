@@ -8,6 +8,7 @@ class ApplicationController < Sinatra::Base
         notes: {
           only: [
             :id,
+            :author_id,
             :title,
             :content
           ]
@@ -51,7 +52,12 @@ class ApplicationController < Sinatra::Base
   end
 
   patch "/notes/:id" do
-
+    note = Note.find(params[:id])
+    note.update(
+      title: params[:title],
+      content: params[:content]
+    )
+    note.to_json
   end
 
   delete "/authors/:id" do
